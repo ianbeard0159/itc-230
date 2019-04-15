@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const querystring = require('querystring');
+const as2 = require('./custom-modules/assignment2-mod');
 const app = express();
 const port = 3000;
 
@@ -13,6 +15,22 @@ app.use(express.static('public'));
 // Home Page
 app.get('/', function(req, res){
     res.sendFile(path.resolve(__dirname + "/public/pages/home.html"));
+});
+app.get('/get', function(req, res){
+    console.log(req.query);
+    if(req.query.title){
+        var title = req.query.title;
+        res.end(JSON.stringify(as2.get(title)));
+    }
+    else{
+        res.end(JSON.stringify(as2.getAll()));
+    }
+});
+app.get('/delete', function(req, res){
+    if(req.query.title){
+        var title = req.query.title;
+        res.end(JSON.stringify(as2.delete(req.query.title)));
+    }
 });
 // About Page
 app.get('/about', function(req, res){

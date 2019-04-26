@@ -1,0 +1,12 @@
+<div class="main">
+    <h1>Detail Page</h1>
+    <p>{{search_result}}</p>
+    {{#if search_found}}
+        <p>
+            Item Details<br>
+             - Title: {{search_title}} <br>
+             - Content: {{search_content}} <br>
+        </p>
+        <a href='/delete?title={{search_title}}'>Delete Item?</a>
+    {{/if}}
+</div>

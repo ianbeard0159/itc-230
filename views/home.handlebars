@@ -1,0 +1,15 @@
+
+<div class="main">
+    <h1>Home Page</h1>
+    <form id="search-form" action="/detail" method="POST">
+        <lable>Search: </lable>
+        <input type="text" name="searchTitle"></input>
+        <input type="submit" value="Search" />
+    </form>
+    {{#each item_list}}
+        <div class="item-container" id={{title}}>
+            <p>- {{title}} -<br>
+            {{content}}</p>
+        </div>
+    {{/each}}
+</div>

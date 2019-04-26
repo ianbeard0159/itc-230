@@ -46,13 +46,13 @@ exports.delete = function(inTitle){
             del = i;
         }
     }
-    if(del){
+    if(del === null){
+        output = inTitle + " was not found in the list";
+    }
+    else{
         console.log(items[del]);
         output = items[del].title + " has been deleted";
         items.splice(del, 1);
-    }
-    else{
-        output = inTitle + " was not found in the list";
     }
     console.log("delete");
     return output;

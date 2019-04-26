@@ -32,3 +32,6 @@ body{
     flex-direction: column;
     align-items: center;
 }
+.item-container p{
+    text-align: center;
+}

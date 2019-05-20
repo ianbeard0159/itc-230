@@ -1,0 +1,18 @@
+<div class="main">
+    <h1>Add Page</h1>
+
+    {{#if item_added}}
+        <p>{{item_added}}</p>
+
+    {{else}}
+        <form id="add-form" action="/add" method="POST">
+            <lable>Title: </lable>
+            <input type="text" name="addTitle"></input>
+
+            <lable>Content: </lable>
+            <input type="text" name="addContent"></input>
+
+            <input type="submit" value="Add" />
+        </form>
+    {{/if}}
+</div>

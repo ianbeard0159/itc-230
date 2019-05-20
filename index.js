@@ -3,8 +3,7 @@ const express = require('express');
 const path = require('path');
 const express_handlebars = require('express-handlebars');
 const body_parser = require('body-parser');
-const querystring = require('querystring');
-const as2 = require('./custom-modules/assignment2-mod');
+const helper = require('./custom-modules/helper-functions');
 
 // Set up express
 const app = express();
@@ -27,47 +26,59 @@ app.use(express.static('public'));
 
 // Home Page
 app.get('/', function(req, res){
-    var data = {item_list: as2.getAll()};
+    var data = {item_list: helper.getAll()};
     res.render('home', data);
 });
 app.get('/get', function(req, res){
     console.log(req.query);
     if(req.query.title){
         var title = req.query.title;
-        res.end(JSON.stringify(as2.get(title)));
+        res.end(JSON.stringify(helper.get(title)));
     }
     else{
-        res.end(JSON.stringify(as2.getAll()));
+        res.end(JSON.stringify(helper.getAll()));
     }
 });
 app.get('/delete', function(req, res){
     if(req.query.title){
-        var title = req.query.title;
-        var data = {item_deleted: as2.delete(req.query.title)};
+        var del_data = {item_deleted: helper.delete(req.query.title)};
 
-        res.render("delete", data);
+        res.render("delete", del_data);
     }
+});
+app.get('/add', function(req, res){
+    console.log("GET add");
+    res.render("add");
+});
+app.post('/add', urlencodedParser, function(req, res){
+    console.log("POST add");
+    var addItem = {
+        title: req.body.addTitle,
+        content: req.body.addContent
+    }
+    var add_data = {item_added: helper.add(addItem)};
+    res.render("add", add_data);
 });
 app.post('/detail', urlencodedParser, function(req, res){
     var searchTerm = req.body.searchTitle;
-    var response = as2.get(searchTerm);
+    var response = helper.get(searchTerm);
     // If the item was not in the list
     if(response === "Item Not Found"){
-        var data = {
+        var detail_data = {
             search_result: '"'+searchTerm+'" was not found in the list.',
             search_found: false
         };
     }
     // If the item was in the search result
     else{
-        var data = {
+        var detail_data = {
             search_result: 'Successfully found "'+searchTerm+'"',
             search_found: true,
             search_title: response.title,
             search_content: response.content
         };
     }
-    res.render('details', data);
+    res.render('details', detail_data);
 });
 // About Page
 app.get('/about', function(req, res){

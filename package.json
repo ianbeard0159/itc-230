@@ -4,15 +4,22 @@
   "description": "Web App for ITC-230",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint **/*.js",
+    "test": "mocha test/*",
+    "test-delete": "mocha test/test-delete"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
+    "mocha": "^6.1.4",
     "path": "^0.12.7",
     "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0"
   }
 }

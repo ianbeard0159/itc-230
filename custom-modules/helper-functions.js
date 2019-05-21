@@ -22,13 +22,13 @@ var items = [
 ];
 exports.itemArray = items;
 
-exports.getAll = function(){
+exports.getAll = () => {
     var output = items;
     return output;
 };
-exports.get = function(inTitle){
+exports.get = (inTitle) => {
     // Return the title of the item if it is found within the array
-    var output = items.find(function(item){
+    var output = items.find((item) => {
         return item.title === inTitle;
     });
     // Otherwise, return item not found
@@ -37,7 +37,7 @@ exports.get = function(inTitle){
     }
     return output;
 };
-exports.delete = function(inTitle){
+exports.delete = (inTitle) => {
     var del = null;
     var output = "";
     // If the desired item is found, set the 'del' flag to that item's index
@@ -59,7 +59,7 @@ exports.delete = function(inTitle){
     }
     return output;
 };
-exports.add = function(inItem){
+exports.add = (inItem) => {
     // If theere is no item in the list with the same title as the input item
     var output = "";
     var inList = false;

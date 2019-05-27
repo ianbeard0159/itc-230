@@ -39,7 +39,7 @@ app.get('/get', (req, res) => {
         var title = req.query.title;
         db_helper.getOne(title, function(output){
             res.end(JSON.stringify(output));
-        })
+        });
     }
     else{
         var title = req.query.title;
@@ -99,26 +99,37 @@ app.post('/detail', urlencodedParser, (req, res) => {
 app.get('/about', (req, res) => {
     res.sendFile(path.resolve(__dirname + "/public/pages/about.html"));
 });
-// Database Routes
 
-app.get('/db_getAll', (req, res, next) => {
+// API Routes
+app.use('/api', require('cors')()); // set Access-Control-Allow-Origin header for api route
+
+app.get('/api/getAll', (req, res, next) => {
     db_helper.getAll(function(output){
-        console.log(output);
-        res.end();
+        res.json(output);
     });
 });
-app.get('/db_getOne', (req, res) => {
-    res.send(JSON.stringify(db_helper.getOne(req.query.title)));
+app.get('/api/getOne', (req, res) => {
+    var title = req.query.title;
+    db_helper.getOne(title, function(output){
+        res.json(output);
+    });
 });
-app.get('/db_delete', (req, res) => {
-    res.end(db_helper.deleteItem(req.query.title));
-});
-app.get('/db_update', (req, res) => {
-    var inItem = {
-        title: req.query.title,
-        content: req.query.content
+app.get('/api/delete', (req, res) => {
+    if(req.query.title){
+        var title = req.query.title;
+        db_helper.deleteItem(title, function(output){
+            res.json(output);
+        });
     }
-    res.end(db_helper.updateItem(inItem));
+});
+app.post('/api/update', (req, res) => {
+    var addItem = {
+        title: req.body.addTitle,
+        content: req.body.addContent
+    }
+    db_helper.updateItem(addItem, function(output){
+        res.json(output);
+    });
 });
 
 // Test Error Page

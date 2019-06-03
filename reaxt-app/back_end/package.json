@@ -1,0 +1,29 @@
+{
+  "name": "web-app",
+  "version": "1.0.0",
+  "description": "Web App for ITC-230",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint **/*.js",
+    "test": "mocha test/*",
+    "test-delete": "mocha test/test-delete"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "fs": "0.0.1-security",
+    "mocha": "^6.1.4",
+    "mongoose": "^5.5.10",
+    "path": "^0.12.7",
+    "promise": "^8.0.3",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}

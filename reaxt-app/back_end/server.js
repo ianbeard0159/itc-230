@@ -14,7 +14,8 @@ const port = 3001;
 
 
 // Set up parser for forms
-var urlencodedParser = body_parser.urlencoded({ extended: false });
+var urlencodedParser = body_parser.urlencoded({ extended: true });
+app.use(require("body-parser").json());
 
 
 
@@ -33,18 +34,21 @@ app.get('/api/getOne', (req, res) => {
     });
 });
 app.get('/api/delete', (req, res) => {
-    if(req.query.title){
+    console.log(req.query);
+    if(req.query.title || req.query.title === ""){
         var title = req.query.title;
         db_helper.deleteItem(title, function(output){
             res.json(output);
         });
     }
 });
-app.post('/api/update', (req, res) => {
+app.post('/api/update', urlencodedParser, (req, res) => {
+    console.log(req.body);
     var addItem = {
-        title: req.body.addTitle,
-        content: req.body.addContent
+        title: req.body.upTitle,
+        content: req.body.upContent
     }
+    console.log(addItem);
     db_helper.updateItem(addItem, function(output){
         res.json(output);
     });
@@ -64,7 +68,8 @@ app.use((req, res, next) => {
 });
 //500 Error
 app.use((err, req, res, next) => {
-    res.status(500).sendFile(path.resolve(__dirname + "/public/pages/500-page.html"));
+    res.status(500).sendFile(path.resolve(__dirname + "/"));
+    console.log(err);
 });
 
 app.listen(port, () => console.log('Listening on port: ' + port));
